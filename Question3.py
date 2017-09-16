@@ -8,11 +8,9 @@ def runFunctions():
     print [a.start(0) for a in  re.finditer(r'\(', sentence)]
     print [a.start(0) for a in  re.finditer(r'\)', sentence)]
     print comment
-    print getClosingParen(sentence, 10)
-    print getClosingParen(sentence, 28)
-    print getClosingParen(sentence, 57)
-    print getClosingParen(sentence, 68)
-    print getClosingParen(sentence, 8)
+    for index in [a.start(0) for a in  re.finditer(r'\(', sentence)]:
+        print getClosingParen(sentence, index)
+    print getClosingParen(sentence, -100)
 
 # DONT WORK CAUSE ASSUME NO MIDDLE CLOSING LIKE (()()())
 # --------------------------------------------------------------------------------------------------------------------------
@@ -35,21 +33,22 @@ def runFunctions():
 #     return -1 if len(indexOpen) != len(indexClose) or openingParenIndex not in indexOpen else indexClose[-(indexOpen.index(openingParenIndex)+1)]
 # # runFunctions()
 # --------------------------------------------------------------------------------------------------------------------------
-comment = 'using push and pop starting at the beginnign \n(assumes even)'
-def getClosingParen(sentence, openingParenIndex):
-    curIndex = 0
-    openPar = []
-    for letter in sentence:
-        if letter == '(':
-            openPar.append(curIndex)
-        elif letter == ')':
-            if openPar[-1] == openingParenIndex:
-                return curIndex
-            openPar.pop()
-        curIndex+=1
-    return -1 # none found
+# DONT WORK: this one has a flaw when uneven or extra ( will lead out of bound when trying to pop which can just have an if to check that'
+# comment = 'using push and pop starting at the beginnign \n(assumes even)
+# def getClosingParen(sentence, openingParenIndex):
+#     curIndex = 0
+#     openPar = []
+#     for letter in sentence:
+#         if letter == '(':
+#             openPar.append(curIndex)
+#         elif letter == ')':
+#             if openPar[-1] == openingParenIndex:
+#                 return curIndex
+#             openPar.pop()
+#         curIndex+=1
+#     return -1 # none found
 
-runFunctions()
+# runFunctions()
 
 # --------------------------------------------------------------------------------------------------------------------------
 comment = 'using push and pop, but starting from the index \n(assumes even)'
